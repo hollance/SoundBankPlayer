@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+<string>32000</string>
+<string>P200 Piano D2</string>
+<string>26</string>
+<string>26</string>
+<string>P200 Piano F#2</string>
+<string>30</string>
+<string>30</string>
+<string>P200 Piano A#2</string>
+<string>34</string>
+<string>34</string>
+<string>P200 Piano D3</string>
+<string>38</string>
+<string>38</string>
+<string>P200 Piano F#3</string>
+<string>42</string>
+<string>42</string>
+<string>P200 Piano A#3</string>
+<string>46</string>
+<string>46</string>
+<string>P200 Piano D4</string>
+<string>50</string>
+<string>50</string>
+<string>P200 Piano F#4</string>
+<string>54</string>
+<string>54</string>
+<string>P200 Piano A#4</string>
+<string>58</string>
+<string>58</string>
+<string>P200 Piano D5</string>
+<string>62</string>
+<string>62</string>
+<string>P200 Piano F#5</string>
+<string>66</string>
+<string>66</string>
+<string>P200 Piano A#5</string>
+<string>70</string>
+<string>70</string>
+<string>P200 Piano D6</string>
+<string>74</string>
+<string>74</string>
+<string>P200 Piano F#6</string>
+<string>78</string>
+<string>78</string>
+<string>P200 Piano C7</string>
+<string>84</string>
+<string>84</string>
+<string>P200 Piano F#7</string>
+<string>90</string>
+<string>90</string>
+<string>P200 Piano A#7</string>
+<string>94</string>
+<string>94</string>
+<string>P200 Piano D#8</string>
+<string>99</string>
+<string>99</string>
+<string>P200 Piano G#9</string>
+<string>104</string>
+<string>104</string>
+<string>P200 Piano C10</string>
+<string>108</string>
+<string>108</string>
+</array>
+</plist>
