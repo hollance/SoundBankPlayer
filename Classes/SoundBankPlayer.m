@@ -28,12 +28,7 @@
 	{
 		initialized = NO;
 		[self initNotes];
-
-#if TARGET_IPHONE_SIMULATOR
-		NSLog(@"Running in Simulator, disabling OpenAL");
-#else
 		[self setUpAudioSession];
-#endif
 	}
 
 	return self;
@@ -41,10 +36,8 @@
 
 - (void)dealloc
 {
-#if !(TARGET_IPHONE_SIMULATOR)
 	[self tearDownAudio];
 	[self tearDownAudioSession];
-#endif
 	[super dealloc];
 }
 
@@ -57,7 +50,6 @@
 
 - (void)setUpAudio
 {
-#if !(TARGET_IPHONE_SIMULATOR)
 	if (!initialized)
 	{
 		[self setUpOpenAL];
@@ -65,12 +57,10 @@
 		[self initSources];
 		initialized = YES;
 	}
-#endif
 }
 
 - (void)tearDownAudio
 {
-#if !(TARGET_IPHONE_SIMULATOR)
 	if (initialized)
 	{
 		[self freeSources];
@@ -78,7 +68,6 @@
 		[self tearDownOpenAL];
 		initialized = NO;
 	}
-#endif
 }
 
 - (void)initNotes
@@ -318,7 +307,6 @@ static void interruptionListener(void* inClientData, UInt32 inInterruptionState)
 		return;
 	}
 
-#if !(TARGET_IPHONE_SIMULATOR)
 	int sourceIndex = [self findAvailableSource];
 	if (sourceIndex != -1)
 	{
@@ -357,7 +345,6 @@ static void interruptionListener(void* inClientData, UInt32 inInterruptionState)
 			}
 		}
 	}
-#endif
 }
 
 - (void)allNotesOff
@@ -368,7 +355,6 @@ static void interruptionListener(void* inClientData, UInt32 inInterruptionState)
 		return;
 	}
 
-#if !(TARGET_IPHONE_SIMULATOR)
 	alGetError();  // clear any errors
 
 	for (int t = 0; t < NUM_SOURCES; ++t)
@@ -380,7 +366,6 @@ static void interruptionListener(void* inClientData, UInt32 inInterruptionState)
 			NSLog(@"Error stopping source: %x", error);
 		}
 	}
-#endif
 }
 
 @end
