@@ -91,10 +91,11 @@
 
 - (void)loadSoundBank:(NSString*)filename
 {
-	NSArray* array = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:filename ofType:@"plist"]];
+	NSString* path = [[NSBundle mainBundle] pathForResource:filename ofType:@"plist"];
+	NSArray* array = [NSArray arrayWithContentsOfFile:path];
 	if (array == nil)
 	{
-		NSLog(@"Could not load soundbank '%@'", filename);
+		NSLog(@"Could not load soundbank '%@'", path);
 		return;
 	}
 
@@ -210,10 +211,11 @@ static void interruptionListener(void* inClientData, UInt32 inInterruptionState)
 			exit(1);
 		}
 
-		CFURLRef fileURL = (CFURLRef)[[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:buffers[t].filename ofType:@"caf"]] retain];
+		NSString* path = [[NSBundle mainBundle] pathForResource:buffers[t].filename ofType:@"caf"];
+		CFURLRef fileURL = (CFURLRef)[[NSURL fileURLWithPath:path] retain];
 		if (fileURL == NULL)
 		{
-			NSLog(@"Could not find file");
+			NSLog(@"Could not find file '%@'", path);
 			exit(1);
 		}
 
@@ -265,6 +267,7 @@ static void interruptionListener(void* inClientData, UInt32 inInterruptionState)
 		}
 
 		sources[t].noteIndex = -1;
+		sources[t].queued = NO;
 	}
 }
 
@@ -285,21 +288,31 @@ static void interruptionListener(void* inClientData, UInt32 inInterruptionState)
 {
 	alGetError();  // clear any errors
 
-	// Find a source that is no longer playing.
+	// Find a source that is no longer playing and not currently queued.
+	int oldest = 0;
 	for (int t = 0; t < NUM_SOURCES; ++t)
 	{
 		ALint sourceState;
-		alGetSourcei(sources[t].sourceId, AL_SOURCE_STATE, &sourceState);
-		if (sourceState != AL_PLAYING)
+		alGetSourcei(sources[t].sourceId, AL_SOURCE_STATE, & sourceState);
+		if (sourceState != AL_PLAYING && !sources[t].queued)
 			return t;
+
+		if (sources[t].time < sources[oldest].time)
+			oldest = t;
 	}
 
-	// If no free sources found, then forcibly use source 0.
-	alSourceStop(sources[0].sourceId);
-	return 0;
+	// If no free source was found, then forcibly use the oldest.
+	alSourceStop(sources[oldest].sourceId);
+	return oldest;
 }
 
-- (void)noteOn:(int)midiNoteNumber gain:(float)gain
+- (void)playNote:(int)midiNoteNumber gain:(float)gain
+{
+	[self queueNote:midiNoteNumber gain:gain];
+	[self playQueuedNotes];
+}
+
+- (void)queueNote:(int)midiNoteNumber gain:(float)gain;
 {
 	if (!initialized)
 	{
@@ -307,18 +320,20 @@ static void interruptionListener(void* inClientData, UInt32 inInterruptionState)
 		return;
 	}
 
-	int sourceIndex = [self findAvailableSource];
-	if (sourceIndex != -1)
+	Note* note = notes + midiNoteNumber;
+	if (note->bufferIndex != -1)
 	{
-		alGetError();  // clear any errors
-
-		Note* note = notes + midiNoteNumber;
-		if (note->bufferIndex != -1)
+		int sourceIndex = [self findAvailableSource];
+		if (sourceIndex != -1)
 		{
+			alGetError();  // clear any errors
+
 			Buffer* buffer = buffers + note->bufferIndex;
 			Source* source = sources + sourceIndex;
-			
+
+			source->time = [NSDate timeIntervalSinceReferenceDate];
 			source->noteIndex = midiNoteNumber;
+			source->queued = YES;
 
 			alSourcef(source->sourceId, AL_PITCH, note->pitch/buffer->pitch);
 			alSourcei(source->sourceId, AL_LOOPING, AL_FALSE);
@@ -330,21 +345,36 @@ static void interruptionListener(void* inClientData, UInt32 inInterruptionState)
 
 			alSourcei(source->sourceId, AL_BUFFER, AL_NONE);
 			alSourcei(source->sourceId, AL_BUFFER, buffer->bufferId);
-			ALenum error;
-			if ((error = alGetError()) != AL_NO_ERROR)
+
+			ALenum error = alGetError();
+			if (error != AL_NO_ERROR)
 			{
 				NSLog(@"Error attaching buffer to source: %x", error);
 				return;
 			}
-
-			alSourcePlay(source->sourceId);
-			if ((error = alGetError()) != AL_NO_ERROR)
-			{
-				NSLog(@"Error starting source: %x", error);
-				return;
-			}
 		}
 	}
+}
+
+- (void)playQueuedNotes
+{
+	ALuint queuedSources[NUM_SOURCES] = { 0 };
+	ALsizei count = 0;
+
+	for (int t = 0; t < NUM_SOURCES; ++t)
+	{
+		if (sources[t].queued)
+		{
+			queuedSources[count++] = sources[t].sourceId;
+			sources[t].queued = NO;
+		}
+	}
+
+	alSourcePlayv(count, queuedSources);
+
+	ALenum error = alGetError();
+	if (error != AL_NO_ERROR)
+		NSLog(@"Error starting source: %x", error);
 }
 
 - (void)allNotesOff
@@ -360,11 +390,10 @@ static void interruptionListener(void* inClientData, UInt32 inInterruptionState)
 	for (int t = 0; t < NUM_SOURCES; ++t)
 	{
 		alSourceStop(sources[t].sourceId);
-		ALenum error;
-		if ((error = alGetError()) != AL_NO_ERROR)
-		{
+
+		ALenum error = alGetError();
+		if (error != AL_NO_ERROR)
 			NSLog(@"Error stopping source: %x", error);
-		}
 	}
 }
 

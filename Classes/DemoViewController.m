@@ -39,9 +39,10 @@
 
 - (IBAction)strumCMajorChord
 {
-	[player noteOn:48 gain:0.4f];
-	[player noteOn:55 gain:0.4f];
-	[player noteOn:64 gain:0.4f];
+	[player queueNote:48 gain:0.4f];
+	[player queueNote:55 gain:0.4f];
+	[player queueNote:64 gain:0.4f];
+	[player playQueuedNotes];
 }
 
 - (IBAction)arpeggiateCMajorChord
@@ -57,10 +58,11 @@
 
 - (IBAction)strumAMinorChord
 {
-	[player noteOn:45 gain:0.4f];
-	[player noteOn:52 gain:0.4f];
-	[player noteOn:60 gain:0.4f];
-	[player noteOn:67 gain:0.4f];
+	[player queueNote:45 gain:0.4f];
+	[player queueNote:52 gain:0.4f];
+	[player queueNote:60 gain:0.4f];
+	[player queueNote:67 gain:0.4f];
+	[player playQueuedNotes];
 }
 
 - (IBAction)arpeggiateAMinorChord
@@ -115,7 +117,7 @@
 		if (now - arpeggioStartTime >= arpeggioDelay)
 		{
 			NSNumber* number = (NSNumber*)[arpeggioNotes objectAtIndex:arpeggioIndex];
-			[player noteOn:[number intValue] gain:0.4f];
+			[player playNote:[number intValue] gain:0.4f];
 
 			++arpeggioIndex;
 			if (arpeggioIndex == [arpeggioNotes count])

@@ -1,5 +1,9 @@
 /*!
  * \file SoundBankPlayer.h
+ *
+ * Copyright (c) 2008-2011 Matthijs Hollemans.
+ * With contributions from Sam King.
+ * Licensed under the terms of the MIT license.
  */
 
 #import <Foundation/Foundation.h>
@@ -10,14 +14,15 @@
  * How many Buffer objects we have. This limits the number of sound samples
  * there can be in the sound bank.
  */
-#define MAX_BUFFERS 20
+#define MAX_BUFFERS 128
 
 /*!
  * How many OpenAL sources we will use. Each source plays a single buffer, so
  * this effectively determines the maximum polyphony. There is an upper limit
  * to the number of simultaneously playing sources that OpenAL supports.
+ * http://stackoverflow.com/questions/2871905/openal-determine-maximum-sources
  */ 
-#define NUM_SOURCES 12
+#define NUM_SOURCES 32
 
 /*!
  * How many Note objects we have. We can handle the entire MIDI range (0-127).
@@ -41,8 +46,10 @@ Buffer;
  */
 typedef struct
 {
-	ALuint sourceId;  ///< OpenAL source name
-	int noteIndex;    ///< which note is playing or -1 if idle
+	ALuint sourceId;      ///< OpenAL source name
+	int noteIndex;        ///< which note is playing or -1 if idle
+	bool queued;          ///< is this source queued to be played later?
+	NSTimeInterval time;  ///< time at which this source was enqueued
 }
 Source;
 
@@ -69,9 +76,6 @@ Note;
  *
  * The sound samples must always be mono. SoundBankPlayer pans the notes to 
  * achieve a stereo effect.
- *
- * \note Because OpenAL does not work well on the simulator, SoundBankPlayer  
- * only produces sound when running on an actual device.
  */
 @interface SoundBankPlayer : NSObject
 {
@@ -102,15 +106,25 @@ Note;
  *
  * If there are no free sources found (i.e. there are more than NUM_SOURCES
  * notes playing), an existing source may be terminated to make room for the
- * new sound. The algorithm for this is not particularly pretty (currently it
- * simply frees up source 0).
+ * new sound. The algorithm for this currently always picks the oldest source.
  *
  * @param midiNoteNumber the MIDI note number
  * @param gain An attenuation factor. If you are going to play multiple notes
  *        at the same time, then it's wise to set \a gain to 0.5f or lower to
  *        prevent clipping.
  */
-- (void)noteOn:(int)midiNoteNumber gain:(float)gain;
+- (void)playNote:(int)midiNoteNumber gain:(float)gain;
+
+/*!
+ * To play a chord, performance will be better if you enqueue a bunch of notes
+ * and then play them all simultaneously.
+ */
+- (void)queueNote:(int)midiNoteNumber gain:(float)gain;
+
+/*!
+ * Plays the queued notes.
+ */
+- (void)playQueuedNotes;
 
 /*!
  * Stops all playing notes.
