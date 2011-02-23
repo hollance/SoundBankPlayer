@@ -89,6 +89,8 @@ Note;
 
 	ALCcontext* context;  ///< OpenAL context
 	ALCdevice* device;    ///< OpenAL device
+
+	NSString* soundBankName;  ///< name of the current sound bank
 }
 
 /*!

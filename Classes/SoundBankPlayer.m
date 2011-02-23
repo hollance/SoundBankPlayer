@@ -27,6 +27,7 @@
 	if ((self = [super init]))
 	{
 		initialized = NO;
+		soundBankName = @"";
 		[self initNotes];
 		[self setUpAudioSession];
 	}
@@ -38,14 +39,21 @@
 {
 	[self tearDownAudio];
 	[self tearDownAudioSession];
+	[soundBankName release];
 	[super dealloc];
 }
 
-- (void)setSoundBank:(NSString*)soundBankName
+- (void)setSoundBank:(NSString*)theSoundBankName
 {
-	[self tearDownAudio];
-	[self loadSoundBank:soundBankName];
-	[self setUpAudio];
+	if (![theSoundBankName isEqualToString:soundBankName])
+	{
+		[soundBankName release];
+		soundBankName = [theSoundBankName copy];
+
+		[self tearDownAudio];
+		[self loadSoundBank:soundBankName];
+		[self setUpAudio];
+	}
 }
 
 - (void)setUpAudio
