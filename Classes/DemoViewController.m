@@ -5,7 +5,7 @@
 #import <QuartzCore/CABase.h>
 #import "DemoViewController.h"
 
-@interface DemoViewController (Private)
+@interface DemoViewController ()
 - (void)playArpeggioWithNotes:(NSArray*)notes delay:(double)delay;
 - (void)startTimer;
 - (void)stopTimer;
@@ -117,7 +117,7 @@
 		if (now - arpeggioStartTime >= arpeggioDelay)
 		{
 			NSNumber* number = (NSNumber*)[arpeggioNotes objectAtIndex:arpeggioIndex];
-			[player playNote:[number intValue] gain:0.4f];
+			[player noteOn:[number intValue] gain:0.4f];
 
 			++arpeggioIndex;
 			if (arpeggioIndex == [arpeggioNotes count])

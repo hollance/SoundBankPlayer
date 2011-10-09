@@ -3,7 +3,7 @@
 #import "SoundBankPlayer.h"
 #import "OpenALSupport.h"
 
-@interface SoundBankPlayer (Private)
+@interface SoundBankPlayer ()
 - (void)initNotes;
 - (void)loadSoundBank:(NSString*)filename;
 - (void)setUpAudio;
@@ -22,12 +22,15 @@
 
 @implementation SoundBankPlayer
 
+@synthesize loopNotes;
+
 - (id)init
 {
 	if ((self = [super init]))
 	{
 		initialized = NO;
 		soundBankName = @"";
+		loopNotes = NO;
 		[self initNotes];
 		[self setUpAudioSession];
 	}
@@ -314,7 +317,7 @@ static void interruptionListener(void* inClientData, UInt32 inInterruptionState)
 	return oldest;
 }
 
-- (void)playNote:(int)midiNoteNumber gain:(float)gain
+- (void)noteOn:(int)midiNoteNumber gain:(float)gain
 {
 	[self queueNote:midiNoteNumber gain:gain];
 	[self playQueuedNotes];
@@ -344,7 +347,7 @@ static void interruptionListener(void* inClientData, UInt32 inInterruptionState)
 			source->queued = YES;
 
 			alSourcef(source->sourceId, AL_PITCH, note->pitch/buffer->pitch);
-			alSourcei(source->sourceId, AL_LOOPING, AL_FALSE);
+			alSourcei(source->sourceId, AL_LOOPING, self.loopNotes ? AL_TRUE : AL_FALSE);
 			alSourcef(source->sourceId, AL_REFERENCE_DISTANCE, 100.0f);
 			alSourcef(source->sourceId, AL_GAIN, gain);
 		
@@ -383,6 +386,29 @@ static void interruptionListener(void* inClientData, UInt32 inInterruptionState)
 	ALenum error = alGetError();
 	if (error != AL_NO_ERROR)
 		NSLog(@"Error starting source: %x", error);
+}
+
+- (void)noteOff:(int)midiNoteNumber
+{
+	if (!initialized)
+	{
+		NSLog(@"SoundBankPlayer is not initialized yet");
+		return;
+	}
+
+	alGetError();  // clear any errors
+
+	for (int t = 0; t < NUM_SOURCES; ++t)
+	{
+		if (sources[t].noteIndex == midiNoteNumber)
+		{
+			alSourceStop(sources[t].sourceId);
+
+			ALenum error = alGetError();
+			if (error != AL_NO_ERROR)
+				NSLog(@"Error stopping source: %x", error);
+		}
+	}
 }
 
 - (void)allNotesOff

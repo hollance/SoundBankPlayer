@@ -2,7 +2,7 @@
  * \file SoundBankPlayer.h
  *
  * Copyright (c) 2008-2011 Matthijs Hollemans.
- * With contributions from Sam King.
+ * With contributions from π.
  * Licensed under the terms of the MIT license.
  */
 
@@ -94,6 +94,21 @@ Note;
 }
 
 /*!
+ * For continuous tone instruments (such as an organ sound) set this to YES.
+ *
+ * Make sure you provide raw sound fonts that wrap nicely, i.e. try to catch a 
+ * whole number of waves in the sample and clip it at the zero crossings. Even 
+ * then it's hard to get it perfect so it's better to use really long samples. 
+ * If you are setting loopNotes to YES, you will need to call noteOff: to quiet 
+ * a playing note.
+ *
+ * For piano notes and other sounds that naturally decay to silence, set this 
+ * property to NO. You don't need to call noteOff:, the note will automatically
+ * terminate itself when it has played to the end of the sample.
+ */
+@property (nonatomic, assign) BOOL loopNotes;
+
+/*!
  * Sets the sound bank that the sounds will be loaded from.
  *
  * @param soundBankName the name of a PLIST file from the bundle
@@ -102,9 +117,6 @@ Note;
 
 /*!
  * Plays the note with the specified MIDI note number. 
- * 
- * The sample is always played until completion; there is no corresponding 
- * noteOff method.
  *
  * If there are no free sources found (i.e. there are more than NUM_SOURCES
  * notes playing), an existing source may be terminated to make room for the
@@ -115,7 +127,7 @@ Note;
  *        at the same time, then it's wise to set \a gain to 0.5f or lower to
  *        prevent clipping.
  */
-- (void)playNote:(int)midiNoteNumber gain:(float)gain;
+- (void)noteOn:(int)midiNoteNumber gain:(float)gain;
 
 /*!
  * To play a chord, performance will be better if you enqueue a bunch of notes
@@ -124,9 +136,16 @@ Note;
 - (void)queueNote:(int)midiNoteNumber gain:(float)gain;
 
 /*!
- * Plays the queued notes.
+ * Plays the enqueued notes.
  */
 - (void)playQueuedNotes;
+
+/*!
+ * Stops playing a particular note. This method is really only useful when 
+ * loopNotes is set to YES. Turning a note off when it is not playing is okay, 
+ * it just does nothing.
+ */
+- (void)noteOff:(int)midiNoteNumber;
 
 /*!
  * Stops all playing notes.

@@ -225,6 +225,9 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Demo" */;
 			compatibilityVersion = "Xcode 3.1";
 			developmentRegion = English;
@@ -304,6 +307,8 @@
 				GCC_PREFIX_HEADER = Demo_Prefix.pch;
 				INFOPLIST_FILE = "Demo-Info.plist";
 				PRODUCT_NAME = Demo;
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				WARNING_CFLAGS = "-Wall";
 			};
 			name = Debug;
 		};
@@ -316,7 +321,9 @@
 				GCC_PREFIX_HEADER = Demo_Prefix.pch;
 				INFOPLIST_FILE = "Demo-Info.plist";
 				PRODUCT_NAME = Demo;
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				VALIDATE_PRODUCT = YES;
+				WARNING_CFLAGS = "-Wall";
 			};
 			name = Release;
 		};
