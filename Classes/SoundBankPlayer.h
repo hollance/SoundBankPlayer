@@ -35,7 +35,7 @@
 typedef struct
 {
 	float pitch;         ///< pitch of the note in the sound sample
-	NSString* filename;  ///< name of the sound sample file
+	char const *filename;  ///< name of the sound sample file
 	ALuint bufferId;     ///< OpenAL buffer name
 	void* data;          ///< the buffer sample data
 }
