@@ -42,15 +42,12 @@
 {
 	[self tearDownAudio];
 	[self tearDownAudioSession];
-	[soundBankName release];
-	[super dealloc];
 }
 
 - (void)setSoundBank:(NSString*)theSoundBankName
 {
 	if (![theSoundBankName isEqualToString:soundBankName])
 	{
-		[soundBankName release];
 		soundBankName = [theSoundBankName copy];
 
 		[self tearDownAudio];
@@ -119,7 +116,7 @@
 	int midiStart = 0;
 	for (int t = 0; t < numBuffers; ++t)
 	{
-		buffers[t].filename = [array objectAtIndex:1 + t*3];
+		buffers[t].filename = [[array objectAtIndex:1 + t*3] UTF8String];
 		int midiEnd = [(NSString*)[array objectAtIndex:1 + t*3 + 1] intValue];
 		int rootKey = [(NSString*)[array objectAtIndex:1 + t*3 + 2] intValue];
 		buffers[t].pitch = notes[rootKey].pitch;
@@ -139,7 +136,7 @@
 
 static void interruptionListener(void* inClientData, UInt32 inInterruptionState)
 {
-	SoundBankPlayer* player = (SoundBankPlayer*)inClientData;
+	SoundBankPlayer* player = (__bridge SoundBankPlayer*)inClientData;
 	if (inInterruptionState == kAudioSessionBeginInterruption)
 		[player audioSessionBeginInterruption];
 	else if (inInterruptionState == kAudioSessionEndInterruption)
@@ -148,13 +145,13 @@ static void interruptionListener(void* inClientData, UInt32 inInterruptionState)
 
 - (void)registerAudioSessionCategory
 {
-	UInt32 sessionCategory = kAudioSessionCategory_MediaPlayback;
+	UInt32 sessionCategory = kAudioSessionCategory_PlayAndRecord;
 	AudioSessionSetProperty(kAudioSessionProperty_AudioCategory, sizeof(sessionCategory), &sessionCategory);
 }
 
 - (void)setUpAudioSession
 {
-	AudioSessionInitialize(NULL, NULL, interruptionListener, self);
+	AudioSessionInitialize(NULL, NULL, interruptionListener, (__bridge void *)(self));
 	[self registerAudioSessionCategory];
 	AudioSessionSetActive(true);
 }
@@ -222,8 +219,10 @@ static void interruptionListener(void* inClientData, UInt32 inInterruptionState)
 			exit(1);
 		}
 
-		NSString* path = [[NSBundle mainBundle] pathForResource:buffers[t].filename ofType:@"caf"];
-		CFURLRef fileURL = (CFURLRef)[[NSURL fileURLWithPath:path] retain];
+		NSString* path = [[NSBundle mainBundle] pathForResource:[NSString stringWithUTF8String:buffers[t].filename]
+                                                         ofType:@"caf"];
+
+		CFURLRef fileURL = (__bridge_retained CFURLRef)[NSURL fileURLWithPath:path];
 		if (fileURL == NULL)
 		{
 			NSLog(@"Could not find file '%@'", path);
