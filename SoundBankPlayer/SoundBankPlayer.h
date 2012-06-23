@@ -25,8 +25,8 @@
  * It's like SoundFonts but simpler.
  *
  * The SoundBankPlayer takes care of setting up the Audio Session. You only
- * have to provide the sound samples (in CAF format) and a PLIST file that
- * describes how the samples map to MIDI notes.
+ * have to provide the sound samples (in CAF, M4A, or any other supported audio
+ * format) and a PLIST file that describes how the samples map to MIDI notes.
  *
  * The sound samples must always be mono. SoundBankPlayer pans the notes to 
  * achieve a stereo effect.

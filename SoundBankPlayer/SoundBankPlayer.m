@@ -13,10 +13,10 @@
 // Describes a sound sample and connects it to an OpenAL buffer.
 typedef struct
 {
-	float pitch;         // pitch of the note in the sound sample
-	NSString *filename;  // name of the sound sample file
-	ALuint bufferId;     // OpenAL buffer name
-	void *data;          // the buffer sample data
+	float pitch;           // pitch of the note in the sound sample
+	CFStringRef filename;  // name of the sound sample file
+	ALuint bufferId;       // OpenAL buffer name
+	void *data;            // the buffer sample data
 }
 Buffer;
 
@@ -80,15 +80,12 @@ Note;
 {
 	[self tearDownAudio];
 	[self tearDownAudioSession];
-	[_soundBankName release];
-	[super dealloc];
 }
 
 - (void)setSoundBank:(NSString *)newSoundBankName
 {
 	if (![newSoundBankName isEqualToString:_soundBankName])
 	{
-		[_soundBankName release];
 		_soundBankName = [newSoundBankName copy];
 
 		[self tearDownAudio];
@@ -144,20 +141,20 @@ Note;
 	NSArray *array = [NSArray arrayWithContentsOfFile:path];
 	if (array == nil)
 	{
-		NSLog(@"Could not load soundbank '%@'", path);
+		NSLog(@"Could not load sound bank '%@'", path);
 		return;
 	}
 
 	_sampleRate = [(NSString *)[array objectAtIndex:0] intValue];
 
-	_numBuffers = (array.count - 1) / 3;
+	_numBuffers = ([array count] - 1) / 3;
 	if (_numBuffers > MAX_BUFFERS)
 		_numBuffers = MAX_BUFFERS;
 
 	int midiStart = 0;
 	for (int t = 0; t < _numBuffers; ++t)
 	{
-		_buffers[t].filename = [array objectAtIndex:1 + t*3];
+		_buffers[t].filename = CFBridgingRetain([array objectAtIndex:1 + t*3]);
 		int midiEnd = [(NSString *)[array objectAtIndex:1 + t*3 + 1] intValue];
 		int rootKey = [(NSString *)[array objectAtIndex:1 + t*3 + 2] intValue];
 		_buffers[t].pitch = _notes[rootKey].pitch;
@@ -176,7 +173,7 @@ Note;
 
 static void interruptionListener(void *inClientData, UInt32 inInterruptionState)
 {
-	SoundBankPlayer *player = (SoundBankPlayer *)inClientData;
+	SoundBankPlayer *player = (__bridge SoundBankPlayer *)inClientData;
 	if (inInterruptionState == kAudioSessionBeginInterruption)
 		[player audioSessionBeginInterruption];
 	else if (inInterruptionState == kAudioSessionEndInterruption)
@@ -191,7 +188,7 @@ static void interruptionListener(void *inClientData, UInt32 inInterruptionState)
 
 - (void)setUpAudioSession
 {
-	AudioSessionInitialize(NULL, NULL, interruptionListener, self);
+	AudioSessionInitialize(NULL, NULL, interruptionListener, (__bridge void *)self);
 	[self registerAudioSessionCategory];
 	AudioSessionSetActive(true);
 }
@@ -255,27 +252,26 @@ static void interruptionListener(void *inClientData, UInt32 inInterruptionState)
 		if ((error = alGetError()) != AL_NO_ERROR)
 		{
 			NSLog(@"Error generating OpenAL buffer: %x", error);
-			exit(1);
+			return;
 		}
 
-		NSString *path = [[NSBundle mainBundle] pathForResource:_buffers[t].filename ofType:@"caf"];
-		CFURLRef fileURL = (CFURLRef)[[NSURL fileURLWithPath:path] retain];
-		if (fileURL == NULL)
+		NSString *filename = (__bridge NSString *)_buffers[t].filename;
+		NSURL *url = [[NSBundle mainBundle] URLForResource:filename withExtension:nil];
+		if (url == nil)
 		{
-			NSLog(@"Could not find file '%@'", path);
-			exit(1);
+			NSLog(@"Could not find file '%@'", filename);
+			return;
 		}
 
 		ALenum format;
 		ALsizei size;
 		ALsizei freq;
-		_buffers[t].data = GetOpenALAudioData(fileURL, &size, &format, &freq);
-		CFRelease(fileURL);
+		_buffers[t].data = GetOpenALAudioData((__bridge CFURLRef)url, &size, &format, &freq);
 
 		if (_buffers[t].data == NULL)
 		{
 			NSLog(@"Error loading sound");
-			exit(1);
+			return;
 		}
 
 		alBufferDataStaticProc(_buffers[t].bufferId, format, _buffers[t].data, size, freq);
@@ -283,7 +279,7 @@ static void interruptionListener(void *inClientData, UInt32 inInterruptionState)
 		if ((error = alGetError()) != AL_NO_ERROR)
 		{
 			NSLog(@"Error attaching audio to buffer: %x", error);
-			exit(1);
+			return;
 		}
 	}
 }
@@ -294,6 +290,7 @@ static void interruptionListener(void *inClientData, UInt32 inInterruptionState)
 	{
 		alDeleteBuffers(1, &_buffers[t].bufferId);
 		free(_buffers[t].data);
+		CFRelease(_buffers[t].filename);
 		_buffers[t].bufferId = 0;
 		_buffers[t].data = NULL;
 	}
@@ -310,7 +307,7 @@ static void interruptionListener(void *inClientData, UInt32 inInterruptionState)
 		if ((error = alGetError()) != AL_NO_ERROR) 
 		{
 			NSLog(@"Error generating OpenAL source: %x", error);
-			exit(1);
+			return;
 		}
 
 		_sources[t].noteIndex = -1;

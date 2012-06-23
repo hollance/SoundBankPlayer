@@ -36,8 +36,6 @@
 - (void)dealloc
 {
 	[self stopTimer];
-	[_soundBankPlayer release];
-	[super dealloc];
 }
 
 - (IBAction)strumCMajorChord
@@ -126,7 +124,6 @@
 			if (_arpeggioIndex == [_arpeggioNotes count])
 			{
 				_playingArpeggio = NO;
-				[_arpeggioNotes release];
 				_arpeggioNotes = nil;
 			}
 			else  // schedule next note
