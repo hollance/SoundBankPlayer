@@ -3,23 +3,16 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D3623260D0F684500981E51 /* DemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* DemoAppDelegate.m */; };
-		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
-		2899E5220DE3E06400AC0155 /* DemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E5210DE3E06400AC0155 /* DemoViewController.xib */; };
-		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
-		28D7ACF80DDB3853001CB0EB /* DemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* DemoViewController.m */; };
 		7BAA29921212690D00BF4296 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BAA29911212690D00BF4296 /* OpenAL.framework */; };
 		7BAA29961212691700BF4296 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BAA29951212691700BF4296 /* AudioToolbox.framework */; };
 		7BAA29DA12126BFA00BF4296 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BAA29D912126BFA00BF4296 /* QuartzCore.framework */; };
-		7BACBAB71211DE80005E8F00 /* OpenALSupport.c in Sources */ = {isa = PBXBuildFile; fileRef = 7BACBAB31211DE80005E8F00 /* OpenALSupport.c */; };
-		7BACBAB81211DE80005E8F00 /* SoundBankPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BACBAB61211DE80005E8F00 /* SoundBankPlayer.m */; };
 		7BACBACF1211DE8E005E8F00 /* P200 Piano A#2.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7BACBABA1211DE8E005E8F00 /* P200 Piano A#2.caf */; };
 		7BACBAD01211DE8E005E8F00 /* P200 Piano A#3.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7BACBABB1211DE8E005E8F00 /* P200 Piano A#3.caf */; };
 		7BACBAD11211DE8E005E8F00 /* P200 Piano A#4.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7BACBABC1211DE8E005E8F00 /* P200 Piano A#4.caf */; };
@@ -41,28 +34,22 @@
 		7BACBAE11211DE8E005E8F00 /* P200 Piano F#7.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7BACBACC1211DE8E005E8F00 /* P200 Piano F#7.caf */; };
 		7BACBAE21211DE8E005E8F00 /* P200 Piano G#9.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7BACBACD1211DE8E005E8F00 /* P200 Piano G#9.caf */; };
 		7BACBAE31211DE8E005E8F00 /* Piano.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7BACBACE1211DE8E005E8F00 /* Piano.plist */; };
+		7BF55AE41595F5AD00324B00 /* OpenALSupport.c in Sources */ = {isa = PBXBuildFile; fileRef = 7BF55ADB1595F5AD00324B00 /* OpenALSupport.c */; };
+		7BF55AE51595F5AD00324B00 /* SoundBankPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF55ADE1595F5AD00324B00 /* SoundBankPlayer.m */; };
+		7BF55AF01595F5CE00324B00 /* DemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF55AEA1595F5CE00324B00 /* DemoAppDelegate.m */; };
+		7BF55AF11595F5CE00324B00 /* DemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF55AEC1595F5CE00324B00 /* DemoViewController.m */; };
+		7BF55AF21595F5CE00324B00 /* DemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BF55AED1595F5CE00324B00 /* DemoViewController.xib */; };
+		7BF55AF31595F5CE00324B00 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF55AEE1595F5CE00324B00 /* main.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1D3623240D0F684500981E51 /* DemoAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoAppDelegate.h; sourceTree = "<group>"; };
-		1D3623250D0F684500981E51 /* DemoAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoAppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		2899E5210DE3E06400AC0155 /* DemoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DemoViewController.xib; sourceTree = "<group>"; };
-		28AD733E0D9D9553002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
-		28D7ACF60DDB3853001CB0EB /* DemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoViewController.h; sourceTree = "<group>"; };
-		28D7ACF70DDB3853001CB0EB /* DemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoViewController.m; sourceTree = "<group>"; };
-		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		32CA4F630368D1EE00C91783 /* Demo_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Demo_Prefix.pch; sourceTree = "<group>"; };
 		7BAA29911212690D00BF4296 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		7BAA29951212691700BF4296 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		7BAA29D912126BFA00BF4296 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		7BACBAB31211DE80005E8F00 /* OpenALSupport.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = OpenALSupport.c; sourceTree = "<group>"; };
-		7BACBAB41211DE80005E8F00 /* OpenALSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenALSupport.h; sourceTree = "<group>"; };
-		7BACBAB51211DE80005E8F00 /* SoundBankPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundBankPlayer.h; sourceTree = "<group>"; };
-		7BACBAB61211DE80005E8F00 /* SoundBankPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundBankPlayer.m; sourceTree = "<group>"; };
 		7BACBABA1211DE8E005E8F00 /* P200 Piano A#2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "P200 Piano A#2.caf"; sourceTree = "<group>"; };
 		7BACBABB1211DE8E005E8F00 /* P200 Piano A#3.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "P200 Piano A#3.caf"; sourceTree = "<group>"; };
 		7BACBABC1211DE8E005E8F00 /* P200 Piano A#4.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "P200 Piano A#4.caf"; sourceTree = "<group>"; };
@@ -84,7 +71,18 @@
 		7BACBACC1211DE8E005E8F00 /* P200 Piano F#7.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "P200 Piano F#7.caf"; sourceTree = "<group>"; };
 		7BACBACD1211DE8E005E8F00 /* P200 Piano G#9.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "P200 Piano G#9.caf"; sourceTree = "<group>"; };
 		7BACBACE1211DE8E005E8F00 /* Piano.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Piano.plist; sourceTree = "<group>"; };
-		8D1107310486CEB800E47090 /* Demo-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Demo-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		7BF55ADB1595F5AD00324B00 /* OpenALSupport.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = OpenALSupport.c; sourceTree = "<group>"; };
+		7BF55ADC1595F5AD00324B00 /* OpenALSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenALSupport.h; sourceTree = "<group>"; };
+		7BF55ADD1595F5AD00324B00 /* SoundBankPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundBankPlayer.h; sourceTree = "<group>"; };
+		7BF55ADE1595F5AD00324B00 /* SoundBankPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundBankPlayer.m; sourceTree = "<group>"; };
+		7BF55AE71595F5CE00324B00 /* Demo-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Demo-Info.plist"; sourceTree = "<group>"; };
+		7BF55AE81595F5CE00324B00 /* Demo_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Demo_Prefix.pch; sourceTree = "<group>"; };
+		7BF55AE91595F5CE00324B00 /* DemoAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoAppDelegate.h; sourceTree = "<group>"; };
+		7BF55AEA1595F5CE00324B00 /* DemoAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoAppDelegate.m; sourceTree = "<group>"; };
+		7BF55AEB1595F5CE00324B00 /* DemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoViewController.h; sourceTree = "<group>"; };
+		7BF55AEC1595F5CE00324B00 /* DemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoViewController.m; sourceTree = "<group>"; };
+		7BF55AED1595F5CE00324B00 /* DemoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DemoViewController.xib; sourceTree = "<group>"; };
+		7BF55AEE1595F5CE00324B00 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,21 +102,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		080E96DDFE201D6D7F000001 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				7BACBAB51211DE80005E8F00 /* SoundBankPlayer.h */,
-				7BACBAB61211DE80005E8F00 /* SoundBankPlayer.m */,
-				7BACBAB31211DE80005E8F00 /* OpenALSupport.c */,
-				7BACBAB41211DE80005E8F00 /* OpenALSupport.h */,
-				1D3623240D0F684500981E51 /* DemoAppDelegate.h */,
-				1D3623250D0F684500981E51 /* DemoAppDelegate.m */,
-				28D7ACF60DDB3853001CB0EB /* DemoViewController.h */,
-				28D7ACF70DDB3853001CB0EB /* DemoViewController.m */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,33 +113,13 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				080E96DDFE201D6D7F000001 /* Classes */,
-				29B97315FDCFA39411CA2CEA /* Other Sources */,
-				29B97317FDCFA39411CA2CEA /* Resources */,
+				7BF55ADA1595F5AD00324B00 /* SoundBankPlayer */,
+				7BF55AE61595F5CE00324B00 /* Demo */,
 				7BACBAB91211DE8E005E8F00 /* Sounds */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
 			name = CustomTemplate;
-			sourceTree = "<group>";
-		};
-		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
-			isa = PBXGroup;
-			children = (
-				32CA4F630368D1EE00C91783 /* Demo_Prefix.pch */,
-				29B97316FDCFA39411CA2CEA /* main.m */,
-			);
-			name = "Other Sources";
-			sourceTree = "<group>";
-		};
-		29B97317FDCFA39411CA2CEA /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				2899E5210DE3E06400AC0155 /* DemoViewController.xib */,
-				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
-				8D1107310486CEB800E47090 /* Demo-Info.plist */,
-			);
-			name = Resources;
 			sourceTree = "<group>";
 		};
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
@@ -200,6 +163,32 @@
 			path = Sounds;
 			sourceTree = "<group>";
 		};
+		7BF55ADA1595F5AD00324B00 /* SoundBankPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				7BF55ADC1595F5AD00324B00 /* OpenALSupport.h */,
+				7BF55ADB1595F5AD00324B00 /* OpenALSupport.c */,
+				7BF55ADD1595F5AD00324B00 /* SoundBankPlayer.h */,
+				7BF55ADE1595F5AD00324B00 /* SoundBankPlayer.m */,
+			);
+			path = SoundBankPlayer;
+			sourceTree = "<group>";
+		};
+		7BF55AE61595F5CE00324B00 /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+				7BF55AE71595F5CE00324B00 /* Demo-Info.plist */,
+				7BF55AE81595F5CE00324B00 /* Demo_Prefix.pch */,
+				7BF55AE91595F5CE00324B00 /* DemoAppDelegate.h */,
+				7BF55AEA1595F5CE00324B00 /* DemoAppDelegate.m */,
+				7BF55AEB1595F5CE00324B00 /* DemoViewController.h */,
+				7BF55AEC1595F5CE00324B00 /* DemoViewController.m */,
+				7BF55AED1595F5CE00324B00 /* DemoViewController.xib */,
+				7BF55AEE1595F5CE00324B00 /* main.m */,
+			);
+			path = Demo;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -226,10 +215,10 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0430;
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Demo" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -252,8 +241,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
-				2899E5220DE3E06400AC0155 /* DemoViewController.xib in Resources */,
 				7BACBACF1211DE8E005E8F00 /* P200 Piano A#2.caf in Resources */,
 				7BACBAD01211DE8E005E8F00 /* P200 Piano A#3.caf in Resources */,
 				7BACBAD11211DE8E005E8F00 /* P200 Piano A#4.caf in Resources */,
@@ -275,6 +262,7 @@
 				7BACBAE11211DE8E005E8F00 /* P200 Piano F#7.caf in Resources */,
 				7BACBAE21211DE8E005E8F00 /* P200 Piano G#9.caf in Resources */,
 				7BACBAE31211DE8E005E8F00 /* Piano.plist in Resources */,
+				7BF55AF21595F5CE00324B00 /* DemoViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,11 +273,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
-				1D3623260D0F684500981E51 /* DemoAppDelegate.m in Sources */,
-				28D7ACF80DDB3853001CB0EB /* DemoViewController.m in Sources */,
-				7BACBAB71211DE80005E8F00 /* OpenALSupport.c in Sources */,
-				7BACBAB81211DE80005E8F00 /* SoundBankPlayer.m in Sources */,
+				7BF55AE41595F5AD00324B00 /* OpenALSupport.c in Sources */,
+				7BF55AE51595F5AD00324B00 /* SoundBankPlayer.m in Sources */,
+				7BF55AF01595F5CE00324B00 /* DemoAppDelegate.m in Sources */,
+				7BF55AF11595F5CE00324B00 /* DemoViewController.m in Sources */,
+				7BF55AF31595F5CE00324B00 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,11 +292,16 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Demo_Prefix.pch;
-				INFOPLIST_FILE = "Demo-Info.plist";
+				GCC_PREFIX_HEADER = Demo/Demo_Prefix.pch;
+				INFOPLIST_FILE = "Demo/Demo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = Demo;
 				RUN_CLANG_STATIC_ANALYZER = YES;
-				WARNING_CFLAGS = "-Wall";
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Wextra",
+					"-Wno-unused-parameter",
+				);
 			};
 			name = Debug;
 		};
@@ -318,12 +311,17 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Demo_Prefix.pch;
-				INFOPLIST_FILE = "Demo-Info.plist";
+				GCC_PREFIX_HEADER = Demo/Demo_Prefix.pch;
+				INFOPLIST_FILE = "Demo/Demo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = Demo;
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				VALIDATE_PRODUCT = YES;
-				WARNING_CFLAGS = "-Wall";
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Wextra",
+					"-Wno-unused-parameter",
+				);
 			};
 			name = Release;
 		};
@@ -336,7 +334,6 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
-				PREBINDING = NO;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -351,7 +348,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PREBINDING = NO;
 				SDKROOT = iphoneos;
 			};
 			name = Release;
