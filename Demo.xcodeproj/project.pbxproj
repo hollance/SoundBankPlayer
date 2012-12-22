@@ -10,6 +10,7 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
+		7B254DE41685DD1300B21EF9 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B254DE31685DD1300B21EF9 /* Default-568h@2x.png */; };
 		7BAA29921212690D00BF4296 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BAA29911212690D00BF4296 /* OpenAL.framework */; };
 		7BAA29961212691700BF4296 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BAA29951212691700BF4296 /* AudioToolbox.framework */; };
 		7BAA29DA12126BFA00BF4296 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BAA29D912126BFA00BF4296 /* QuartzCore.framework */; };
@@ -47,6 +48,7 @@
 		1D6058910D05DD3D006BFB54 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		7B254DE31685DD1300B21EF9 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		7BAA29911212690D00BF4296 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		7BAA29951212691700BF4296 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		7BAA29D912126BFA00BF4296 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -135,6 +137,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7B254DE01685DC2C00B21EF9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7B254DE31685DD1300B21EF9 /* Default-568h@2x.png */,
+				7BF55AE71595F5CE00324B00 /* Demo-Info.plist */,
+				7BF55AE81595F5CE00324B00 /* Demo_Prefix.pch */,
+				7BF55AEE1595F5CE00324B00 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		7BACBAB91211DE8E005E8F00 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -177,14 +190,12 @@
 		7BF55AE61595F5CE00324B00 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
-				7BF55AE71595F5CE00324B00 /* Demo-Info.plist */,
-				7BF55AE81595F5CE00324B00 /* Demo_Prefix.pch */,
 				7BF55AE91595F5CE00324B00 /* DemoAppDelegate.h */,
 				7BF55AEA1595F5CE00324B00 /* DemoAppDelegate.m */,
 				7BF55AEB1595F5CE00324B00 /* DemoViewController.h */,
 				7BF55AEC1595F5CE00324B00 /* DemoViewController.m */,
 				7BF55AED1595F5CE00324B00 /* DemoViewController.xib */,
-				7BF55AEE1595F5CE00324B00 /* main.m */,
+				7B254DE01685DC2C00B21EF9 /* Supporting Files */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -263,6 +274,7 @@
 				7BACBAE21211DE8E005E8F00 /* P200 Piano G#9.caf in Resources */,
 				7BACBAE31211DE8E005E8F00 /* Piano.plist in Resources */,
 				7BF55AF21595F5CE00324B00 /* DemoViewController.xib in Resources */,
+				7B254DE41685DD1300B21EF9 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,7 +308,6 @@
 				GCC_PREFIX_HEADER = Demo/Demo_Prefix.pch;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Demo/Demo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = Demo;
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				WARNING_CFLAGS = (
@@ -317,7 +328,6 @@
 				GCC_PREFIX_HEADER = Demo/Demo_Prefix.pch;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Demo/Demo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = Demo;
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				VALIDATE_PRODUCT = YES;
@@ -337,7 +347,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -350,7 +360,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 			};

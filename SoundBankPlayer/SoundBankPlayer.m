@@ -60,8 +60,6 @@ Note;
 	NSString *_soundBankName;      // name of the current sound bank
 }
 
-@synthesize loopNotes = _loopNotes;
-
 - (id)init
 {
 	if ((self = [super init]))
@@ -145,7 +143,7 @@ Note;
 		return;
 	}
 
-	_sampleRate = [(NSString *)[array objectAtIndex:0] intValue];
+	_sampleRate = [(NSString *)array[0] intValue];
 
 	_numBuffers = ([array count] - 1) / 3;
 	if (_numBuffers > MAX_BUFFERS)
@@ -154,9 +152,9 @@ Note;
 	int midiStart = 0;
 	for (int t = 0; t < _numBuffers; ++t)
 	{
-		_buffers[t].filename = CFBridgingRetain([array objectAtIndex:1 + t*3]);
-		int midiEnd = [(NSString *)[array objectAtIndex:1 + t*3 + 1] intValue];
-		int rootKey = [(NSString *)[array objectAtIndex:1 + t*3 + 2] intValue];
+		_buffers[t].filename = CFBridgingRetain(array[1 + t*3]);
+		int midiEnd = [(NSString *)array[1 + t*3 + 1] intValue];
+		int rootKey = [(NSString *)array[1 + t*3 + 2] intValue];
 		_buffers[t].pitch = _notes[rootKey].pitch;
 
 		if (t == _numBuffers - 1)
@@ -171,7 +169,7 @@ Note;
 
 #pragma mark - Audio Session
 
-static void interruptionListener(void *inClientData, UInt32 inInterruptionState)
+static void InterruptionListener(void *inClientData, UInt32 inInterruptionState)
 {
 	SoundBankPlayer *player = (__bridge SoundBankPlayer *)inClientData;
 	if (inInterruptionState == kAudioSessionBeginInterruption)
@@ -188,7 +186,7 @@ static void interruptionListener(void *inClientData, UInt32 inInterruptionState)
 
 - (void)setUpAudioSession
 {
-	AudioSessionInitialize(NULL, NULL, interruptionListener, (__bridge void *)self);
+	AudioSessionInitialize(NULL, NULL, InterruptionListener, (__bridge void *)self);
 	[self registerAudioSessionCategory];
 	AudioSessionSetActive(true);
 }

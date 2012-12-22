@@ -1,6 +1,4 @@
-/*!
- * \file SoundBankPlayer.h
- *
+/*
  * Copyright (c) 2008-2012 Matthijs Hollemans.
  * With contributions from π.
  * Licensed under the terms of the MIT license.
@@ -10,7 +8,7 @@
 #import <OpenAL/al.h>
 #import <OpenAL/alc.h>
 
-/*!
+/*
  * How many OpenAL sources we will use. Each source plays a single buffer, so
  * this effectively determines the maximum polyphony. There is an upper limit
  * to the number of simultaneously playing sources that OpenAL supports.
@@ -18,7 +16,7 @@
  */ 
 #define NUM_SOURCES 32
 
-/*!
+/*
  * SoundBankPlayer is a sample-based audio player that uses OpenAL. It employs
  * a "sound bank", which contains a set of samples that each cover one or more
  * notes, allowing you to implement a full instrument with only a few samples.
@@ -33,7 +31,7 @@
  */
 @interface SoundBankPlayer : NSObject
 
-/*!
+/*
  * For continuous tone instruments (such as an organ sound) set this to YES.
  *
  * Make sure you provide raw sound fonts that wrap nicely, i.e. try to catch a 
@@ -48,14 +46,14 @@
  */
 @property (nonatomic, assign) BOOL loopNotes;
 
-/*!
+/*
  * Sets the sound bank that the sounds will be loaded from.
  *
  * @param soundBankName the name of a PLIST file from the bundle
  */
 - (void)setSoundBank:(NSString *)soundBankName;
 
-/*!
+/*
  * Plays the note with the specified MIDI note number. 
  *
  * If there are no free sources found (i.e. there are more than NUM_SOURCES
@@ -69,25 +67,25 @@
  */
 - (void)noteOn:(int)midiNoteNumber gain:(float)gain;
 
-/*!
+/*
  * To play a chord, performance will be better if you enqueue a bunch of notes
  * and then play them all simultaneously.
  */
 - (void)queueNote:(int)midiNoteNumber gain:(float)gain;
 
-/*!
+/*
  * Plays the enqueued notes.
  */
 - (void)playQueuedNotes;
 
-/*!
+/*
  * Stops playing a particular note. This method is really only useful when 
  * loopNotes is set to YES. Turning a note off when it is not playing is okay, 
  * it just does nothing.
  */
 - (void)noteOff:(int)midiNoteNumber;
 
-/*!
+/*
  * Stops all playing notes.
  */
 - (void)allNotesOff;
