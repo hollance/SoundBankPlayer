@@ -145,7 +145,7 @@ Note;
 
 	_sampleRate = [(NSString *)array[0] intValue];
 
-	_numBuffers = ([array count] - 1) / 3;
+	_numBuffers = (int)([array count] - 1) / 3;
 	if (_numBuffers > MAX_BUFFERS)
 		_numBuffers = MAX_BUFFERS;
 
