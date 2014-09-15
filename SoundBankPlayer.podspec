@@ -13,5 +13,5 @@ Pod::Spec.new do |s|
   s.author       = { "Matthijs Hollemans" => "mail@hollance.com" }
   s.source       = { :git => "http://github.com/hollance/SoundBankPlayer.git", :tag => "1.0.0" }
 
-  s.source_files  = "SoundBankPlayer/*.{h,m}"
+  s.source_files  = "SoundBankPlayer/*.{h,m,c}"
 end
