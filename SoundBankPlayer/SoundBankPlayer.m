@@ -1,7 +1,8 @@
-
 #import <AudioToolbox/AudioToolbox.h>
 #import "SoundBankPlayer.h"
 #import "OpenALSupport.h"
+
+@import AVFoundation;
 
 // How many Buffer objects we have. This limits the number of sound samples
 // there can be in the sound bank.
@@ -69,6 +70,7 @@ Note;
 		_loopNotes = NO;
 		[self initNotes];
 		[self setUpAudioSession];
+        [self setupListener];
 	}
 
 	return self;
@@ -76,6 +78,7 @@ Note;
 
 - (void)dealloc
 {
+    [self removeListener];
 	[self tearDownAudio];
 	[self tearDownAudioSession];
 }
@@ -90,6 +93,25 @@ Note;
 		[self loadSoundBank:_soundBankName];
 		[self setUpAudio];
 	}
+}
+
+- (void)setupListener
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(audioInterrupted:) name:AVAudioSessionInterruptionNotification object:nil];
+}
+
+- (void)removeListener
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVAudioSessionInterruptionNotification object:nil];
+}
+
+- (void)audioInterrupted:(NSNotification *)notification
+{
+    if ([notification.userInfo[AVAudioSessionInterruptionTypeKey] integerValue] == AVAudioSessionInterruptionTypeBegan) {
+        [self audioSessionBeginInterruption];
+    } else {
+        [self audioSessionEndInterruption];
+    }
 }
 
 - (void)setUpAudio
@@ -169,36 +191,28 @@ Note;
 
 #pragma mark - Audio Session
 
-static void InterruptionListener(void *inClientData, UInt32 inInterruptionState)
-{
-	SoundBankPlayer *player = (__bridge SoundBankPlayer *)inClientData;
-	if (inInterruptionState == kAudioSessionBeginInterruption)
-		[player audioSessionBeginInterruption];
-	else if (inInterruptionState == kAudioSessionEndInterruption)
-		[player audioSessionEndInterruption];
-}
-
 - (void)registerAudioSessionCategory
 {
-	UInt32 sessionCategory = kAudioSessionCategory_MediaPlayback;
-	AudioSessionSetProperty(kAudioSessionProperty_AudioCategory, sizeof(sessionCategory), &sessionCategory);
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
 }
 
 - (void)setUpAudioSession
 {
-	AudioSessionInitialize(NULL, NULL, InterruptionListener, (__bridge void *)self);
-	[self registerAudioSessionCategory];
-	AudioSessionSetActive(true);
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    [self registerAudioSessionCategory];
+    [session setActive:YES error:nil];
 }
 
 - (void)tearDownAudioSession
 {
-	AudioSessionSetActive(false);
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    [session setActive:NO error:nil];
 }
 
 - (void)audioSessionBeginInterruption
 {
-	AudioSessionSetActive(false);
+    [self tearDownAudioSession];
 
 	alGetError();  // clear any errors
 	alcMakeContextCurrent(NULL);
@@ -207,9 +221,8 @@ static void InterruptionListener(void *inClientData, UInt32 inInterruptionState)
 
 - (void)audioSessionEndInterruption
 {
-	[self registerAudioSessionCategory];  // re-register the category
-	AudioSessionSetActive(true);
-
+    [self setUpAudioSession];
+    
 	alGetError();  // clear any errors
 	alcMakeContextCurrent(_context);
 	alcProcessContext(_context);
